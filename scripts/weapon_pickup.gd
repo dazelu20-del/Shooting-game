@@ -3,29 +3,17 @@ extends Area3D
 @export var weapon_id := "rifle"
 
 @onready var label: Label3D = $Label3D
-@onready var mesh: MeshInstance3D = $MeshInstance3D
 
 var _base_position: Vector3
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	label.text = weapon_id.capitalize()
-	_setup_color()
 	_base_position = global_position
 
 func set_spawn_position(pos: Vector3) -> void:
 	global_position = pos
 	_base_position = pos
-
-func _setup_color() -> void:
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = match weapon_id:
-		"rifle": Color(0.3, 0.3, 0.35)
-		"pistol": Color(0.45, 0.35, 0.2)
-		"sniper": Color(0.15, 0.25, 0.15)
-		_: Color(0.25, 0.25, 0.25)
-	mat.roughness = 1.0
-	mesh.material_override = mat
 
 func _process(delta: float) -> void:
 	rotate_y(delta * 1.5)
