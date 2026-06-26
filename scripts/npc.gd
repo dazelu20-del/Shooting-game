@@ -5,15 +5,23 @@ const DIALOGUE := "Hello, the zombie outbreak has spread. Please take this."
 
 var player_in_range := false
 var has_given_grenade := false
+var _idle_time := 0.0
 
 @onready var interact_area: Area3D = $InteractArea
 @onready var label: Label3D = $Label3D
+@onready var model: Node3D = $Model
 
 func _ready() -> void:
 	add_to_group("npc")
 	label.text = "Steve"
 	interact_area.body_entered.connect(_on_body_entered)
 	interact_area.body_exited.connect(_on_body_exited)
+	_idle_time = randf() * TAU
+
+func _process(delta: float) -> void:
+	_idle_time += delta
+	model.position.y = sin(_idle_time * 1.8) * 0.015
+	model.rotation.y = sin(_idle_time * 0.45) * 0.04
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_in_range and not has_given_grenade:

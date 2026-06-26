@@ -3,14 +3,20 @@ extends Node3D
 const PICKUP_SCENE := preload("res://scenes/weapon_pickup.tscn")
 
 const SPAWN_DATA := [
-	{"id": "rifle", "pos": Vector3(-20, 0.8, -15)},
+	{"id": "ak47", "pos": Vector3(-32, 0.8, -24)},
+	{"id": "machinegun", "pos": Vector3(-30, 0.8, -20)},
+	{"id": "pistol", "pos": Vector3(28, 0.8, 22)},
+	{"id": "ak47", "pos": Vector3(30, 0.8, 26)},
+	{"id": "machinegun", "pos": Vector3(-26, 0.8, 30)},
+	{"id": "pistol", "pos": Vector3(-24, 0.8, 34)},
+	{"id": "sniper", "pos": Vector3(34, 0.8, -30)},
+	{"id": "rifle", "pos": Vector3(36, 0.8, -26)},
+	{"id": "machinegun", "pos": Vector3(-38, 0.8, 6)},
+	{"id": "ak47", "pos": Vector3(-36, 0.8, 10)},
+	{"id": "pistol", "pos": Vector3(8, 0.8, -36)},
+	{"id": "rifle", "pos": Vector3(12, 0.8, -38)},
+	{"id": "sniper", "pos": Vector3(-20, 0.8, -15)},
 	{"id": "pistol", "pos": Vector3(25, 0.8, -20)},
-	{"id": "sniper", "pos": Vector3(-30, 0.8, 30)},
-	{"id": "rifle", "pos": Vector3(35, 0.8, 10)},
-	{"id": "pistol", "pos": Vector3(-10, 0.8, 35)},
-	{"id": "sniper", "pos": Vector3(15, 0.8, -35)},
-	{"id": "pistol", "pos": Vector3(-35, 0.8, -30)},
-	{"id": "rifle", "pos": Vector3(40, 0.8, -5)},
 ]
 
 func _ready() -> void:

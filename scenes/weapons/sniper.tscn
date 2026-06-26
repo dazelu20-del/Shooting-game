@@ -12,6 +12,7 @@ spread_degrees = 0.0
 damage_per_pellet = 100
 max_range = 80.0
 fire_rate = 1.2
+bullet_speed = 180.0
 max_ammo = 5
 reload_time = 2.5
 

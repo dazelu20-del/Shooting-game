@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbullet001"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_bullet"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bullet"]
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.14
+radial_segments = 8
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_bullet"]
+albedo_color = Color(1, 0.85, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.75, 0.15, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_trail"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 0.7, 0.1, 0.35)
+emission_enabled = true
+emission = Color(1, 0.6, 0.1, 1)
+emission_energy_multiplier = 1.5
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_bullet")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.07)
+mesh = SubResource("CylinderMesh_bullet")
+surface_material_override/0 = SubResource("Mat_bullet")
+
+[node name="Trail" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -2.1, 0, 0.7, -3.0598e-08, 0, 0, -0.28)
+mesh = SubResource("CylinderMesh_bullet")
+surface_material_override/0 = SubResource("Mat_trail")

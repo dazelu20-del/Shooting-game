@@ -1,0 +1,131 @@
+[gd_scene load_steps=13 format=3 uid="uid://house001"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_floor"]
+size = Vector3(12, 0.3, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(12, 0.3, 10)
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.5, 0.48, 0.44, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape_wall"]
+size = Vector3(12, 3.5, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(12, 3.5, 0.35)
+
+[sub_resource type="BoxShape3D" id="BoxShape_wall_segment"]
+size = Vector3(4.5, 3.5, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_segment"]
+size = Vector3(4.5, 3.5, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wall"]
+albedo_color = Color(0.72, 0.68, 0.6, 1)
+roughness = 0.85
+
+[sub_resource type="BoxShape3D" id="BoxShape_wall_side"]
+size = Vector3(0.35, 3.5, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_side"]
+size = Vector3(0.35, 3.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape_door_top"]
+size = Vector3(3, 1.2, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_door_top"]
+size = Vector3(3, 1.2, 0.35)
+
+[sub_resource type="BoxShape3D" id="BoxShape_roof"]
+size = Vector3(12.6, 0.25, 10.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_roof"]
+size = Vector3(12.6, 0.25, 10.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_roof"]
+albedo_color = Color(0.42, 0.22, 0.18, 1)
+roughness = 0.95
+
+[node name="House" type="Node3D"]
+
+[node name="Building" type="StaticBody3D" parent="."]
+
+[node name="Floor" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape_floor")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("BoxMesh_floor")
+surface_material_override/0 = SubResource("Mat_floor")
+
+[node name="BackWall" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 5)
+shape = SubResource("BoxShape_wall")
+
+[node name="BackWallMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 5)
+mesh = SubResource("BoxMesh_wall")
+surface_material_override/0 = SubResource("Mat_wall")
+
+[node name="FrontWallLeft" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 2.05, -5)
+shape = SubResource("BoxShape_wall_segment")
+
+[node name="FrontWallLeftMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 2.05, -5)
+mesh = SubResource("BoxMesh_wall_segment")
+surface_material_override/0 = SubResource("Mat_wall")
+
+[node name="FrontWallRight" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 2.05, -5)
+shape = SubResource("BoxShape_wall_segment")
+
+[node name="FrontWallRightMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 2.05, -5)
+mesh = SubResource("BoxMesh_wall_segment")
+surface_material_override/0 = SubResource("Mat_wall")
+
+[node name="FrontWallTop" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -5)
+shape = SubResource("BoxShape_door_top")
+
+[node name="FrontWallTopMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, -5)
+mesh = SubResource("BoxMesh_door_top")
+surface_material_override/0 = SubResource("Mat_wall")
+
+[node name="LeftWall" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.05, 0)
+shape = SubResource("BoxShape_wall_side")
+
+[node name="LeftWallMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.05, 0)
+mesh = SubResource("BoxMesh_wall_side")
+surface_material_override/0 = SubResource("Mat_wall")
+
+[node name="RightWall" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.05, 0)
+shape = SubResource("BoxShape_wall_side")
+
+[node name="RightWallMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.05, 0)
+mesh = SubResource("BoxMesh_wall_side")
+surface_material_override/0 = SubResource("Mat_wall")
+
+[node name="Roof" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.85, 0)
+shape = SubResource("BoxShape_roof")
+
+[node name="RoofMesh" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.85, 0)
+mesh = SubResource("BoxMesh_roof")
+surface_material_override/0 = SubResource("Mat_roof")
+
+[node name="PorchLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -4.2)
+light_color = Color(1, 0.85, 0.6, 1)
+light_energy = 0.6
+omni_range = 8.0

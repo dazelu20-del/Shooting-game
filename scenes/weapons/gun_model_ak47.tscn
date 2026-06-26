@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://gun_model_ak47"]
+
+[ext_resource type="PackedScene" path="res://assets/gun/rockets_gun.glb" id="1_glb"]
+
+[node name="GunModel" type="Node3D"]
+
+[node name="rockets_gun" parent="." instance=ExtResource("1_glb")]
+transform = Transform3D(0.00105, 0, 0, 0, 0, 0.00105, 0, -0.00105, 0, 0.033, -0.052, 0.07)

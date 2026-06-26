@@ -5,6 +5,8 @@ const WEAPON_SCENES := {
 	"rifle": "res://scenes/weapons/rifle.tscn",
 	"pistol": "res://scenes/weapons/pistol.tscn",
 	"sniper": "res://scenes/weapons/sniper.tscn",
+	"ak47": "res://scenes/weapons/ak47.tscn",
+	"machinegun": "res://scenes/weapons/machine_gun.tscn",
 }
 
 var weapons: Array[Node3D] = []
@@ -49,6 +51,8 @@ func add_weapon_from_scene(scene: PackedScene) -> bool:
 	return add_weapon(id)
 
 func _weapon_id(weapon: Node) -> String:
+	if weapon.has_method("get_id"):
+		return weapon.get_id()
 	return String(weapon.get("weapon_name")).to_lower()
 
 func _switch_weapon(direction: int) -> void:
