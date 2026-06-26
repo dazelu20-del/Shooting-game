@@ -10,6 +10,7 @@ var _dialogue_label: Label
 var _game_over_panel: PanelContainer
 var _message_timer: Timer
 var _pause_panel: PanelContainer
+var _crosshair: Control
 
 func _ready() -> void:
 	add_to_group("hud")
@@ -34,6 +35,7 @@ func _cache_nodes() -> void:
 	_game_over_panel = get_node_or_null("GameOverPanel")
 	_message_timer = get_node_or_null("MessageTimer")
 	_pause_panel = get_node_or_null("PausePanel")
+	_crosshair = get_node_or_null("Crosshair")
 
 func _connect_pause_buttons() -> void:
 	var resume_btn := get_node_or_null("PausePanel/Margin/VBox/ResumeButton")
@@ -52,6 +54,8 @@ func show_pause_menu(show_menu: bool) -> void:
 		return
 	_pause_panel.visible = show_menu
 	get_tree().paused = show_menu
+	if _crosshair:
+		_crosshair.visible = not show_menu
 
 func hide_pause_menu() -> void:
 	show_pause_menu(false)
@@ -111,6 +115,8 @@ func show_game_over() -> void:
 		call_deferred("show_game_over")
 		return
 	_game_over_panel.visible = true
+	if _crosshair:
+		_crosshair.visible = false
 
 func _show_dialogue(text: String) -> void:
 	_dialogue_label.text = text

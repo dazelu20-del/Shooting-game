@@ -1,20 +1,22 @@
 [gd_scene load_steps=3 format=3 uid="uid://wpn_shotgun"]
 
 [ext_resource type="Script" path="res://scripts/weapon.gd" id="1_weapon"]
-[ext_resource type="PackedScene" path="res://scenes/weapons/gun_model.tscn" id="2_gun_model"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/shotgun_model.tscn" id="2_shotgun_model"]
 
 [node name="Shotgun" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, -0.25, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, -0.28, -0.45)
 script = ExtResource("1_weapon")
+weapon_id = "shotgun"
 weapon_name = "Shotgun"
 pellet_count = 8
 spread_degrees = 6.0
 damage_per_pellet = 15
 fire_rate = 0.8
+bullet_speed = 95.0
 max_ammo = 8
 reload_time = 1.5
 
-[node name="GunModel" parent="." instance=ExtResource("2_gun_model")]
+[node name="GunModel" parent="." instance=ExtResource("2_shotgun_model")]
 
 [node name="Muzzle" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.43)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.035, -0.5)
