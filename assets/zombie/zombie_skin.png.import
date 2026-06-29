@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j4i8w4r8y00p"
-path="res://.godot/imported/steve_reference_arm_r.png-a1d22ca73c7787d924b9a3be22b08de4.ctex"
+uid="uid://clmc2cnfpg07c"
+path="res://.godot/imported/zombie_skin.png-9870ce1213fd680d71d771ee7390d324.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/npc/steve_reference_arm_r.png"
-dest_files=["res://.godot/imported/steve_reference_arm_r.png-a1d22ca73c7787d924b9a3be22b08de4.ctex"]
+source_file="res://assets/zombie/zombie_skin.png"
+dest_files=["res://.godot/imported/zombie_skin.png-9870ce1213fd680d71d771ee7390d324.ctex"]
 
 [params]
 

@@ -63,7 +63,7 @@ func _die() -> void:
 	died.emit(self)
 	queue_free()
 
-func reset_at(position: Vector3) -> void:
-	global_position = position
+func reset_at(at_position: Vector3) -> void:
+	global_position = at_position
 	health = MAX_HEALTH
 	_find_target()

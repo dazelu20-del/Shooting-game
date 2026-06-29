@@ -17,10 +17,10 @@ func _ready() -> void:
 		if i % 10 == 0:
 			await get_tree().process_frame
 
-func _spawn_zombie(position: Vector3) -> void:
+func _spawn_zombie(spawn_pos: Vector3) -> void:
 	var zombie: CharacterBody3D = zombie_scene.instantiate()
 	add_child(zombie)
-	zombie.global_position = position
+	zombie.global_position = spawn_pos
 	zombie.died.connect(_on_zombie_died)
 	active_zombies.append(zombie)
 

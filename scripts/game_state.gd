@@ -1,6 +1,13 @@
+class_name GameStateService
 extends Node
 
 enum ReturnReason { FRESH, DIED, QUIT }
+
+static func resolve() -> GameStateService:
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree == null:
+		return null
+	return tree.root.get_node_or_null("GameState") as GameStateService
 
 var return_reason := ReturnReason.FRESH
 var last_survival_time := 0.0
@@ -19,6 +26,6 @@ func set_survival_time(seconds: float) -> void:
 
 func format_survival_time(seconds: float) -> String:
 	var total := int(seconds)
-	var mins := total / 60
+	var mins := int(total / 60)
 	var secs := total % 60
 	return "%d:%02d" % [mins, secs]

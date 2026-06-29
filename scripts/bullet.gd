@@ -111,9 +111,10 @@ func _resolve_damage_target(collider: Object) -> Object:
 		return null
 	if collider.has_method("take_damage"):
 		return collider
-	var parent := collider.get_parent()
-	if parent and parent.has_method("take_damage"):
-		return parent
+	if collider is Node:
+		var parent: Node = (collider as Node).get_parent()
+		if parent and parent.has_method("take_damage"):
+			return parent
 	return null
 
 func _apply_damage(target: Object) -> void:

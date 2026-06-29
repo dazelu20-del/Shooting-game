@@ -92,14 +92,19 @@ func _try_throw_grenade() -> void:
 func _die() -> void:
 	is_dead = true
 	_save_survival_time()
-	GameState.set_died()
+	var state := GameStateService.resolve()
+	if state:
+		state.set_died()
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
 
 func return_to_title() -> void:
 	_save_survival_time()
-	GameState.set_quit()
+	var state := GameStateService.resolve()
+	if state:
+		state.set_quit()
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
 
 func _save_survival_time() -> void:
-	if hud and hud.has_method("get_survival_time"):
-		GameState.set_survival_time(hud.get_survival_time())
+	var state := GameStateService.resolve()
+	if state and hud and hud.has_method("get_survival_time"):
+		state.set_survival_time(hud.get_survival_time())

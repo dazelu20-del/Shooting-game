@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://npc_model_realistic"]
+[gd_scene load_steps=7 format=3 uid="uid://npc_model_realistic"]
 
 [ext_resource type="Script" path="res://scripts/npc_model.gd" id="1_model"]
-[ext_resource type="Texture2D" path="res://assets/npc/steve_reference_fullbody.png" id="2_fullbody"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_body_depth"]
 albedo_color = Color(0.35, 0.52, 0.5, 1)
@@ -10,7 +9,7 @@ roughness = 0.9
 [sub_resource type="StandardMaterial3D" id="Mat_fullbody"]
 cull_mode = 2
 shading_mode = 0
-albedo_texture = ExtResource("2_fullbody")
+albedo_color = Color(0.42, 0.64, 0.6, 1)
 roughness = 0.95
 
 [sub_resource type="BoxMesh" id="BoxMesh_depth"]

@@ -10,17 +10,24 @@ func _ready() -> void:
 	action_button.pressed.connect(_on_action_pressed)
 
 func _update_ui() -> void:
-	match GameState.return_reason:
-		GameState.ReturnReason.DIED:
-			status_label.text = "You were overrun by zombies!\nYou survived %s." % GameState.format_survival_time(GameState.last_survival_time)
+	var state := GameStateService.resolve()
+	if state == null:
+		status_label.text = "Survive the zombie outbreak."
+		action_button.text = "Play"
+		return
+	match state.return_reason:
+		GameStateService.ReturnReason.DIED:
+			status_label.text = "You were overrun by zombies!\nYou survived %s." % state.format_survival_time(state.last_survival_time)
 			action_button.text = "Respawn"
-		GameState.ReturnReason.QUIT:
-			status_label.text = "You left the battlefield.\nYou survived %s." % GameState.format_survival_time(GameState.last_survival_time)
+		GameStateService.ReturnReason.QUIT:
+			status_label.text = "You left the battlefield.\nYou survived %s." % state.format_survival_time(state.last_survival_time)
 			action_button.text = "Respawn"
 		_:
 			status_label.text = "Survive the zombie outbreak."
 			action_button.text = "Play"
 
 func _on_action_pressed() -> void:
-	GameState.set_fresh()
+	var state := GameStateService.resolve()
+	if state:
+		state.set_fresh()
 	get_tree().change_scene_to_file("res://scenes/main.tscn")

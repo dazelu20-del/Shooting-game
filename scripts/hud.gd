@@ -88,7 +88,9 @@ func _on_title_pressed() -> void:
 	if player and player.has_method("return_to_title"):
 		player.return_to_title()
 	else:
-		GameState.set_quit()
+		var state := GameStateService.resolve()
+		if state:
+			state.set_quit()
 		get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
 
 func update_health(value: int) -> void:
@@ -122,7 +124,9 @@ func _reset_survival_timer() -> void:
 func _update_survival_label() -> void:
 	if not _survival_label:
 		return
-	_survival_label.text = "Survived: %s" % GameState.format_survival_time(_survival_time)
+	var state := GameStateService.resolve()
+	if state:
+		_survival_label.text = "Survived: %s" % state.format_survival_time(_survival_time)
 
 func show_message(text: String) -> void:
 	if not _message_label:
