@@ -11,6 +11,8 @@ var _game_over_panel: PanelContainer
 var _message_timer: Timer
 var _pause_panel: PanelContainer
 var _crosshair: Control
+var _survival_label: Label
+var _survival_time := 0.0
 
 func _ready() -> void:
 	add_to_group("hud")
@@ -23,6 +25,19 @@ func _ready() -> void:
 	_message_label.text = ""
 	_message_timer.timeout.connect(_clear_message)
 	_connect_pause_buttons()
+	_reset_survival_timer()
+
+func _process(delta: float) -> void:
+	if get_tree().paused:
+		return
+	var player := get_tree().get_first_node_in_group("player")
+	if not player or player.get("is_dead"):
+		return
+	_survival_time += delta
+	_update_survival_label()
+
+func get_survival_time() -> float:
+	return _survival_time
 
 func _cache_nodes() -> void:
 	_health_label = get_node_or_null("MarginContainer/VBox/HealthLabel")
@@ -36,6 +51,7 @@ func _cache_nodes() -> void:
 	_message_timer = get_node_or_null("MessageTimer")
 	_pause_panel = get_node_or_null("PausePanel")
 	_crosshair = get_node_or_null("Crosshair")
+	_survival_label = get_node_or_null("MarginContainer/VBox/SurvivalLabel")
 
 func _connect_pause_buttons() -> void:
 	var resume_btn := get_node_or_null("PausePanel/Margin/VBox/ResumeButton")
@@ -56,6 +72,8 @@ func show_pause_menu(show_menu: bool) -> void:
 	get_tree().paused = show_menu
 	if _crosshair:
 		_crosshair.visible = not show_menu
+	if show_menu:
+		_clear_bullets()
 
 func hide_pause_menu() -> void:
 	show_pause_menu(false)
@@ -97,6 +115,15 @@ func update_zombie_count(count: int) -> void:
 		return
 	_zombie_label.text = "Zombies: %d" % count
 
+func _reset_survival_timer() -> void:
+	_survival_time = 0.0
+	_update_survival_label()
+
+func _update_survival_label() -> void:
+	if not _survival_label:
+		return
+	_survival_label.text = "Survived: %s" % GameState.format_survival_time(_survival_time)
+
 func show_message(text: String) -> void:
 	if not _message_label:
 		call_deferred("show_message", text)
@@ -127,3 +154,8 @@ func _show_dialogue(text: String) -> void:
 func _clear_message() -> void:
 	if _message_label:
 		_message_label.text = ""
+
+func _clear_bullets() -> void:
+	for bullet in get_tree().get_nodes_in_group("bullets"):
+		if is_instance_valid(bullet):
+			bullet.queue_free()

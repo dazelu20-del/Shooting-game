@@ -12,10 +12,10 @@ func _ready() -> void:
 func _update_ui() -> void:
 	match GameState.return_reason:
 		GameState.ReturnReason.DIED:
-			status_label.text = "You were overrun by zombies!"
+			status_label.text = "You were overrun by zombies!\nYou survived %s." % GameState.format_survival_time(GameState.last_survival_time)
 			action_button.text = "Respawn"
 		GameState.ReturnReason.QUIT:
-			status_label.text = "You left the battlefield."
+			status_label.text = "You left the battlefield.\nYou survived %s." % GameState.format_survival_time(GameState.last_survival_time)
 			action_button.text = "Respawn"
 		_:
 			status_label.text = "Survive the zombie outbreak."

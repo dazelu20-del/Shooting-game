@@ -1,0 +1,16 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://steve_jeans_tex"
+valid=false
+
+[deps]
+
+source_file="res://assets/npc/steve_reference_jeans.png"
+
+[params]
+
+compress/mode=0
+mipmaps/generate=true
+detect_3d/compress_to=0

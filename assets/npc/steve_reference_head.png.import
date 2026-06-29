@@ -1,0 +1,16 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://steve_head_tex"
+valid=false
+
+[deps]
+
+source_file="res://assets/npc/steve_reference_head.png"
+
+[params]
+
+compress/mode=0
+mipmaps/generate=true
+detect_3d/compress_to=0

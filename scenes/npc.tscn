@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" path="res://scenes/npc_model.tscn" id="2_model"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
-radius = 0.32
-height = 1.6
+radius = 0.28
+height = 1.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1"]
 radius = 4.0
@@ -15,10 +15,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
 script = ExtResource("1_npc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
 shape = SubResource("CapsuleShape3D_body")
 
 [node name="Model" parent="." instance=ExtResource("2_model")]
+face_target = Vector3(0, 0, 0)
 
 [node name="FillLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.6, 1.5)
@@ -28,7 +29,7 @@ omni_range = 4.0
 shadow_enabled = false
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
 text = "Steve"
 font_size = 32
 outline_size = 8

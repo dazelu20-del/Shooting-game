@@ -6,9 +6,10 @@ extends Node3D
 @export var pellet_count := 8
 @export var spread_degrees := 6.0
 @export var damage_per_pellet := 15
-@export var max_range := 40.0
+@export var max_range := 60.0
 @export var fire_rate := 0.8
 @export var bullet_speed := 110.0
+@export var bullet_hit_radius := 0.15
 @export var max_ammo := 8
 @export var reload_time := 1.5
 
@@ -83,7 +84,7 @@ func _fire() -> void:
 func _spawn_bullet(origin: Vector3, dir: Vector3) -> void:
 	var bullet: Node3D = BULLET_SCENE.instantiate()
 	get_tree().current_scene.add_child(bullet)
-	bullet.setup(origin, dir, damage_per_pellet, max_range, owner_player, bullet_speed)
+	bullet.setup(origin, dir, damage_per_pellet, max_range, owner_player, bullet_speed, bullet_hit_radius)
 
 func _reload() -> void:
 	is_reloading = true
