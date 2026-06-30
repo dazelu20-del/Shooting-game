@@ -152,8 +152,12 @@ func show_game_over() -> void:
 func _show_dialogue(text: String) -> void:
 	_dialogue_label.text = text
 	_dialogue_panel.visible = true
-	await get_tree().create_timer(4.0).timeout
-	_dialogue_panel.visible = false
+	var tree := get_tree()
+	if tree == null:
+		return
+	await tree.create_timer(4.0).timeout
+	if is_inside_tree() and _dialogue_panel:
+		_dialogue_panel.visible = false
 
 func _clear_message() -> void:
 	if _message_label:

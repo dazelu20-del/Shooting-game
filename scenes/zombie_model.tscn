@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bzombie_model01"]
+
+[ext_resource type="Script" path="res://scripts/zombie_model.gd" id="1_model"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_body_depth"]
+albedo_color = Color(0.45, 0.45, 0.48, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_fullbody"]
+resource_local_to_scene = true
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.55, 0.58, 0.55, 1)
+texture_filter = 0
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_depth"]
+size = Vector3(0.55, 1.85, 0.16)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fullbody"]
+size = Vector2(0.7, 1.9)
+
+[node name="ZombieModel" type="Node3D"]
+script = ExtResource("1_model")
+
+[node name="BodyDepth" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+mesh = SubResource("BoxMesh_depth")
+surface_material_override/0 = SubResource("Mat_body_depth")
+
+[node name="FullBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.95, -0.08)
+mesh = SubResource("QuadMesh_fullbody")
+surface_material_override/0 = SubResource("Mat_fullbody")

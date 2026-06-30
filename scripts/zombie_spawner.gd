@@ -15,7 +15,10 @@ func _ready() -> void:
 	for i in ZOMBIE_COUNT:
 		_spawn_zombie(_random_spawn_position())
 		if i % 10 == 0:
-			await get_tree().process_frame
+			var tree := get_tree()
+			if tree == null:
+				return
+			await tree.process_frame
 
 func _spawn_zombie(spawn_pos: Vector3) -> void:
 	var zombie: CharacterBody3D = zombie_scene.instantiate()
@@ -27,10 +30,20 @@ func _spawn_zombie(spawn_pos: Vector3) -> void:
 func _on_zombie_died(zombie: CharacterBody3D) -> void:
 	active_zombies.erase(zombie)
 	pending_respawns += 1
-	await get_tree().create_timer(RESPAWN_DELAY).timeout
+	var tree := get_tree()
+	if tree == null:
+		return
+	await tree.create_timer(RESPAWN_DELAY).timeout
+	if not is_inside_tree():
+		return
 	pending_respawns -= 1
 	_spawn_zombie(_random_spawn_position())
 	_update_hud()
+
+func _exit_tree() -> void:
+	for zombie in active_zombies:
+		if is_instance_valid(zombie) and zombie.died.is_connected(_on_zombie_died):
+			zombie.died.disconnect(_on_zombie_died)
 
 func _random_spawn_position() -> Vector3:
 	var angle := randf() * TAU
@@ -39,7 +52,10 @@ func _random_spawn_position() -> Vector3:
 	return pos
 
 func _update_hud() -> void:
-	var hud := get_tree().get_first_node_in_group("hud")
+	var tree := get_tree()
+	if tree == null:
+		return
+	var hud := tree.get_first_node_in_group("hud")
 	if hud:
 		hud.update_zombie_count(active_zombies.size())
 

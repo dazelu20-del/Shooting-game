@@ -48,5 +48,9 @@ func _detonate(victim: Node) -> void:
 	if hud:
 		hud.show_message("Landmine!")
 
-	await get_tree().create_timer(0.5).timeout
+	var tree := get_tree()
+	if tree == null:
+		queue_free()
+		return
+	await tree.create_timer(0.5).timeout
 	queue_free()

@@ -78,8 +78,12 @@ func _fire() -> void:
 		dir = dir.normalized()
 		_spawn_bullet(origin, dir)
 
-	await get_tree().create_timer(fire_rate).timeout
-	can_fire = true
+	var tree := get_tree()
+	if tree == null:
+		return
+	await tree.create_timer(fire_rate).timeout
+	if is_inside_tree():
+		can_fire = true
 
 func _spawn_bullet(origin: Vector3, dir: Vector3) -> void:
 	var bullet: Node3D = BULLET_SCENE.instantiate()
@@ -90,7 +94,12 @@ func _reload() -> void:
 	is_reloading = true
 	if hud:
 		hud.show_message("Reloading %s..." % weapon_name)
-	await get_tree().create_timer(reload_time).timeout
+	var tree := get_tree()
+	if tree == null:
+		return
+	await tree.create_timer(reload_time).timeout
+	if not is_inside_tree():
+		return
 	ammo = max_ammo
 	is_reloading = false
 	_update_hud()

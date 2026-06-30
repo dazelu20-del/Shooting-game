@@ -56,8 +56,12 @@ func _attack() -> void:
 	can_attack = false
 	if target and target.has_method("take_damage"):
 		target.take_damage(ATTACK_DAMAGE)
-	await get_tree().create_timer(ATTACK_COOLDOWN).timeout
-	can_attack = true
+	var tree := get_tree()
+	if tree == null:
+		return
+	await tree.create_timer(ATTACK_COOLDOWN).timeout
+	if is_inside_tree():
+		can_attack = true
 
 func _die() -> void:
 	died.emit(self)

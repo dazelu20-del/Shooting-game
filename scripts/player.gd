@@ -86,8 +86,12 @@ func _try_throw_grenade() -> void:
 	grenade.throw(throw_dir, self)
 	grenade_count -= 1
 	can_throw_grenade = false
-	await get_tree().create_timer(0.5).timeout
-	can_throw_grenade = true
+	var tree := get_tree()
+	if tree == null:
+		return
+	await tree.create_timer(0.5).timeout
+	if is_inside_tree():
+		can_throw_grenade = true
 
 func _die() -> void:
 	is_dead = true
