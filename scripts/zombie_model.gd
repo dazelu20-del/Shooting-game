@@ -1,6 +1,8 @@
 extends Node3D
 
 const BODY_TEXTURE := "res://assets/zombie/zombie_sprite.png"
+const FALLBACK_TEXTURE := "res://assets/zombie/zombie_reference.png"
+const FALLBACK_COLOR := Color(0.55, 0.58, 0.55, 1)
 
 func _ready() -> void:
 	call_deferred("_apply_body_texture")
@@ -21,19 +23,28 @@ func _apply_body_texture() -> void:
 	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 
 	var tex := _load_texture(BODY_TEXTURE)
+	if not tex:
+		tex = _load_texture(FALLBACK_TEXTURE)
 	if tex:
 		mat.albedo_texture = tex
 		mat.albedo_color = Color.WHITE
+	else:
+		mat.albedo_texture = null
+		mat.albedo_color = FALLBACK_COLOR
+		push_warning("Zombie sprite textures failed to load; using fallback color.")
 
 func _load_texture(path: String) -> Texture2D:
+	if ResourceLoader.exists(path):
+		var resource: Resource = ResourceLoader.load(path)
+		if resource is Texture2D:
+			return resource
+
 	var file_path := ProjectSettings.globalize_path(path)
 	if not FileAccess.file_exists(file_path):
-		push_warning("Zombie texture missing: %s" % path)
 		return null
 
-	var image := Image.load_from_file(file_path)
-	if image.is_empty():
-		push_warning("Zombie texture failed to load: %s" % path)
+	var image: Variant = Image.load_from_file(file_path)
+	if image == null or not (image is Image) or image.is_empty():
 		return null
 
 	return ImageTexture.create_from_image(image)
